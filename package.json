@@ -1,0 +1,23 @@
+{
+  "name": "employee-tracker",
+  "version": "1.0.0",
+  "description": "A command-line application to manage an SQL employee database.",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RicAdbur/employee-database.git"
+  },
+  "author": "RicAdbur",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RicAdbur/employee-database/issues"
+  },
+  "homepage": "https://github.com/RicAdbur/employee-database#readme",
+  "dependencies": {
+    "inquirer": "^9.2.10",
+    "mysql2": "^3.6.0"
+  }
+}
