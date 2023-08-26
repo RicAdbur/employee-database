@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "A command-line application to manage an SQL employee database.",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "test"
   },
