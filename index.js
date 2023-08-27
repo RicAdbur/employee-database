@@ -2,6 +2,13 @@ import inquirer from "inquirer"
 import mysql2 from "mysql2"
 import { prompts } from "./utils/prompts.js"
 
+const connection = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "root",
+  database: "starfleet_officers_db",
+})
+
 function printHeader() {
   console.log(
   `                              
