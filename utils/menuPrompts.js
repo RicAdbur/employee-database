@@ -1,5 +1,5 @@
 // inquirer prompts to navigate the application
-export const prompts = [
+export const menuPrompts = [
   {
       type: "list",
       name: "prompts",
