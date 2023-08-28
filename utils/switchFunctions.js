@@ -3,7 +3,7 @@ import { connection } from "../db/connection.js"
 import { beginPrompts } from "./beginPrompts.js";
 
 export const viewAllDepartments = () => {
-  connection.query("SELECT * FROM departments",
+  connection.query(`SELECT * FROM departments`,
     function (err, results, fields) {
       if (err) throw err
       console.table(results)
@@ -12,7 +12,7 @@ export const viewAllDepartments = () => {
 };
 
 export const viewAllRoles = () => {
-  connection.query("SELECT * FROM roles",
+  connection.query(`SELECT roles.title, roles.id, roles.salary, departments.department_name FROM roles JOIN departments ON roles.department_id = departments.id`,
     function (err, results, fields) {
       if (err) throw err
       console.table(results)
@@ -21,7 +21,9 @@ export const viewAllRoles = () => {
 };
 
 export const viewAllEmployees = () => {
-  connection.query("SELECT * FROM employees",
+  connection.query(`SELECT employees.id, employees.first_name, employees.last_name, departments.department_name, roles.title, roles.salary, employees.manager_id FROM employees 
+  INNER JOIN roles ON employees.role_id = roles.id
+  INNER JOIN departments ON roles.department_id = departments.id`,
     function (err, results, fields) {
       if (err) throw err
       console.table(results)
@@ -132,6 +134,60 @@ export const updateEmployeeRole = () => {
         beginPrompts()
       })
   })
+};
+
+export const deleteDepartment = () => {
+  inquirer.prompt([
+    {
+      name: "delete_department",
+      type: "input",
+      message: "What is the ID of the department do you want to delete?"
+    }
+  ])
+    .then(function (answer) {
+      connection.query(`DELETE FROM departments WHERE id = ?`, [answer.delete_department],
+        function (err, results, fields) {
+          if (err) throw err
+          console.log("--> Department successfully deleted! <--")
+          beginPrompts()
+        })
+    })
+};
+
+export const deleteRole = () => {
+  inquirer.prompt([
+    {
+      name: "delete_role",
+      type: "input",
+      message: "What is the ID of the role you want to delete?"
+    }
+  ])
+    .then(function (answer) {
+      connection.query(`DELETE FROM roles WHERE id = ?`, [answer.delete_role],
+        function (err, results, fields) {
+          if (err) throw err
+          console.log("--> Role successfully deleted! <--")
+          beginPrompts()
+        })
+    })
+};
+
+export const deleteEmployee = () => {
+  inquirer.prompt([
+    {
+      name: "delete_employee",
+      type: "input",
+      message: "What is the ID of the employee you want to delete?"
+    }
+  ])
+    .then(function (answer) {
+      connection.query(`DELETE FROM employees WHERE id = ?`, [answer.delete_employee],
+        function (err, results, fields) {
+          if (err) throw err
+          console.log("--> Employee successfully deleted! <--")
+          beginPrompts()
+        })
+    })
 };
 
 export const exit = () => {

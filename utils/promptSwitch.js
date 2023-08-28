@@ -29,6 +29,18 @@ export const promptSwitch = (answer) => {
     case "Update an employee role":
       switchFunctions.updateEmployeeRole();
     break;
+
+    case "Delete a department":
+      switchFunctions.deleteDepartment();
+    break;
+
+    case "Delete a role":
+      switchFunctions.deleteRole();
+    break;
+
+    case "Delete an employee":
+      switchFunctions.deleteEmployee();
+    break;
   
     case "Exit":
       switchFunctions.exit();

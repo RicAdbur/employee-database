@@ -1,4 +1,4 @@
-INSERT INTO departments (name) VALUES
+INSERT INTO departments (department_name) VALUES
 ("Command"),
 ("Science"),
 ("Medical"),
