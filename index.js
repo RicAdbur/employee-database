@@ -8,7 +8,7 @@ function printHeader() {
             *=-+=+            
            *=--#-=+       
           ++--=%=-+=          
-         -*---+%+--*-      STARFLEET EMPLOYEE DATABASE  
+         -*---+%+--*-     STARFLEET EMPLOYEE DATABASE  
         .#=-=+%%%+==#.        
         ++----+=+---=*        
        .#=-----==++=-*-       

@@ -4,29 +4,29 @@ import { beginPrompts } from "./beginPrompts.js";
 
 export const viewAllDepartments = () => {
   connection.query("SELECT * FROM departments",
-  function(err, results, fields) {
-    if (err) throw err
-    console.table(results)
-    beginPrompts()
-  })
+    function (err, results, fields) {
+      if (err) throw err
+      console.table(results)
+      beginPrompts()
+    })
 };
 
 export const viewAllRoles = () => {
   connection.query("SELECT * FROM roles",
-  function(err, results, fields) {
-    if (err) throw err
-    console.table(results)
-    beginPrompts()
-  })
+    function (err, results, fields) {
+      if (err) throw err
+      console.table(results)
+      beginPrompts()
+    })
 };
 
 export const viewAllEmployees = () => {
   connection.query("SELECT * FROM employees",
-  function(err, results, fields) {
-    if (err) throw err
-    console.table(results)
-    beginPrompts()
-  })
+    function (err, results, fields) {
+      if (err) throw err
+      console.table(results)
+      beginPrompts()
+    })
 };
 
 export const addDepartment = () => {
@@ -37,15 +37,15 @@ export const addDepartment = () => {
       message: "Name the department you want to add:"
     }
   ])
-  .then(function(answer) {
-    connection.query(`INSERT INTO departments (name) VALUES
+    .then(function (answer) {
+      connection.query(`INSERT INTO departments (name) VALUES
     (?)`, [answer.name],
-    function(err, results, fields) {
-      if (err) throw err
-      console.log("--> Department successfully added! <--")
-      beginPrompts()
+        function (err, results, fields) {
+          if (err) throw err
+          console.log("--> Department successfully added! <--")
+          beginPrompts()
+        })
     })
-  })
 };
 
 export const addRole = () => {
@@ -66,15 +66,15 @@ export const addRole = () => {
       message: "ID of the department this role is in:"
     },
   ])
-  .then(function(answer) {
-    connection.query(`INSERT INTO roles (title, salary, department_id) VALUES
+    .then(function (answer) {
+      connection.query(`INSERT INTO roles (title, salary, department_id) VALUES
     (?, ?, ?)`, [answer.title, answer.salary, answer.departmentID],
-    function(err, results, fields) {
-      if (err) throw err
-      console.log("--> Role successfully added! <--")
-      beginPrompts()
+        function (err, results, fields) {
+          if (err) throw err
+          console.log("--> Role successfully added! <--")
+          beginPrompts()
+        })
     })
-  })
 };
 
 export const addEmployee = () => {
@@ -100,21 +100,37 @@ export const addEmployee = () => {
       message: "Manager ID:"
     },
   ])
-  .then(function(answer) {
-    connection.query(`INSERT INTO employees (first_name, last_name, role_id, manager_id) VALUES
+    .then(function (answer) {
+      connection.query(`INSERT INTO employees (first_name, last_name, role_id, manager_id) VALUES
     (?, ?, ?, ?)`, [answer.firstName, answer.lastName, answer.roleID, answer.managerID],
-    function(err, results, fields) {
-      if (err) throw err
-      console.log("--> Employee successfully added! <--")
-      beginPrompts()
+        function (err, results, fields) {
+          if (err) throw err
+          console.log("--> Employee successfully added! <--")
+          beginPrompts()
+        })
     })
-  })
 };
 
 export const updateEmployeeRole = () => {
-  connection.query(``,
-  function(err, results, fields) {
-    if (err) throw err
+  inquirer.prompt([
+    {
+      name: "employeeID",
+      type: "input",
+      message: "What is the ID of the employee you want to update?"
+    },
+    {
+      name: "role",
+      type: "input",
+      message: "What is the new role ID for this employee?"
+    },
+  ])
+  .then(function(answer) {
+    connection.query(`UPDATE employees SET role_id = ? WHERE id = ?`, [answer.role, answer.employeeID],
+      function (err, results, fields) {
+        if (err) throw err
+        console.log("--> Employee role successfully updated! <--")
+        beginPrompts()
+      })
   })
 };
 
