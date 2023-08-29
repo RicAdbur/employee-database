@@ -40,7 +40,7 @@ export const addDepartment = () => {
     }
   ])
     .then(function (answer) {
-      connection.query(`INSERT INTO departments (name) VALUES
+      connection.query(`INSERT INTO departments (department_name) VALUES
     (?)`, [answer.name],
         function (err, results, fields) {
           if (err) throw err

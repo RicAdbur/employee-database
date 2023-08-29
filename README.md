@@ -6,7 +6,7 @@ Clone the repo to your computer, open your terminal in the root directory of the
 
 ---
 ![Screenshot](./assets/EmployeeTrackerScreenshot.png)
-[`Video`]()
+[`Video`](https://drive.google.com/file/d/1AYIaHjsYFBM3uGwhVTsWKqX4AbG5qGpy/view)
 ---
 
 Powered by [node.js](https://nodejs.org/en), [mysql2](https://www.npmjs.com/package/mysql2), and [Inquirer](https://www.npmjs.com/package/inquirer)
