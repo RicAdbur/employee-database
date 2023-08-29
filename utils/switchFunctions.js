@@ -51,32 +51,42 @@ export const addDepartment = () => {
 };
 
 export const addRole = () => {
-  inquirer.prompt([
-    {
-      name: "title",
-      type: "input",
-      message: "Title of the role you want to add:"
-    },
-    {
-      name: "salary",
-      type: "input",
-      message: "Salary for the role you want to add:"
-    },
-    {
-      name: "departmentID",
-      type: "input",
-      message: "ID of the department this role is in:"
-    },
-  ])
-    .then(function (answer) {
-      connection.query(`INSERT INTO roles (title, salary, department_id) VALUES
-    (?, ?, ?)`, [answer.title, answer.salary, answer.departmentID],
-        function (err, results, fields) {
-          if (err) throw err
-          console.log("--> Role successfully added! <--")
-          beginPrompts()
-        })
+  connection.promise().query(`SELECT * FROM departments`)
+  .then(function([departments]) {
+    const choices = departments.map(function(department) {
+      return {
+        name: department.department_name,
+        value: department.id,
+      }
     })
+    inquirer.prompt([
+      {
+        name: "title",
+        type: "input",
+        message: "Title of the role you want to add:"
+      },
+      {
+        name: "salary",
+        type: "input",
+        message: "Salary for the role you want to add:"
+      },
+      {
+        name: "departmentID",
+        type: "list",
+        message: "Choose the department this role is in:",
+        choices
+      },
+    ])
+      .then(function (answer) {
+        connection.query(`INSERT INTO roles (title, salary, department_id) VALUES
+      (?, ?, ?)`, [answer.title, answer.salary, answer.departmentID],
+          function (err, results, fields) {
+            if (err) throw err
+            console.log("--> Role successfully added! <--")
+            beginPrompts()
+          })
+      })
+  })
 };
 
 export const addEmployee = () => {
